@@ -96,3 +96,5 @@ To learn more about React Native, take a look at the following resources:
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
 # AssistBird
+
+AssistBird is a simple mobile app that helps newcomers to Australia to navigate government and local services. You ask your question by typing the problem in the app, such as "How to book a doctor appointment in Melbourne?' or 'How to get a driving licence in ACT? and etc. AssistBird will respond to you in a few seconds. If English is your second language and you don't know how to describe the issue in English, no worries! AssistBird can understand and respond to you in your own language.
