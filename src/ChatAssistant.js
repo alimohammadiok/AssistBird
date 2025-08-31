@@ -7,13 +7,17 @@ import {
   createStaticNavigation,
   useNavigation,
 } from '@react-navigation/native';
+import Config from 'react-native-config';
+
+
 export default function ChatAssistant() {
   const [query, setQuery] = useState("");
   const [answer, setAnswer] = useState("");
   const [loading, setLoading] = useState(false);
   const [translatedText, setTranslatedText] = useState('');
- 
-  
+  const apiKey = Config.API_KEY;
+  const apiUrl = Config.API_URL;
+console.log(apiKey);
   const translateText = async (text, targetLang = "es") => {
   try {
     console.log("the text comming to translae func:",text);
@@ -41,7 +45,7 @@ export default function ChatAssistant() {
   if (!query.trim()) return;
   setLoading(true);
   try {
-    const response = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=[API-Key]", {
+    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
