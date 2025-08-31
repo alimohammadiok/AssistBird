@@ -1,19 +1,18 @@
 // ChatAssistant.js
 import React, { useState } from "react";
-import { View, TextInput, ScrollView, Text, StyleSheet, Button } from "react-native";
+import { View, TextInput, ScrollView, Text, StyleSheet, Button, TouchableOpacity } from "react-native";
 import { Divider, Drawer, Menu, PaperProvider , Button as PButton} from "react-native-paper";
 import { Icon, MD3Colors } from 'react-native-paper';
-
+import {
+  createStaticNavigation,
+  useNavigation,
+} from '@react-navigation/native';
 export default function ChatAssistant() {
   const [query, setQuery] = useState("");
   const [answer, setAnswer] = useState("");
   const [loading, setLoading] = useState(false);
   const [translatedText, setTranslatedText] = useState('');
-  const [visible, setVisible] = useState(false);
-  console.log('visiblity is:', visible);
-  const openMenu = () => setVisible(true);
-
-  const closeMenu = () => setVisible(false);
+ 
   
   const translateText = async (text, targetLang = "es") => {
   try {
@@ -67,32 +66,7 @@ export default function ChatAssistant() {
 
   return (
     <View style={styles.container}>
-        <View
-        style={{
-          paddingTop: 50,
-        //   flexDirection: 'row',
-        //   justifyContent: 'center',
-          position: 'relative'
-        }}>
-            {/* <Button onPress={openMenu} title="show menu"/> */}
-        <Menu
-          visible={visible}
-          onDismiss={closeMenu}
-           anchor={
-      (
-        <Button
-       title="set"
-        onPress={openMenu}
-    />)}
-    >
-    
-          
-          <Menu.Item onPress={() => {}} title="Item 1" />
-          <Menu.Item onPress={() => {}} title="Item 2" />
-          <Divider />
-          <Menu.Item onPress={() => {}} title="Item 3" />
-        </Menu>
-      </View>
+       
       <ScrollView style={styles.answerBox}>
         <Text style={styles.answer}>{answer}</Text>
       </ScrollView>
@@ -102,20 +76,70 @@ export default function ChatAssistant() {
         onChangeText={setQuery}
         placeholder="Ask about Medicare, TFN, housing..."
       />
-      <Button title={loading ? "Loading..." : "Ask"} onPress={handleAsk} disabled={loading} />
+      <View style={styles.buttonContainer}>
+      <TouchableOpacity
+      onPress={handleAsk} disabled={loading}
+      style={styles.button} >
+    <Text style={styles.text}>{loading ? "Loading..." : "Ask"}</Text>
+       
+
+      </TouchableOpacity>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 20, backgroundColor: "#fff" },
+  container: {
+    flex: 1,
+    padding: 24,
+    backgroundColor: "#f6f8fa",
+    justifyContent: "flex-end",
+  },
+  buttonContainer: {
+   
+    justifyContent: "center",
+    alignItems: "center",
+  },
+   button: {
+    backgroundColor: "#2196F3",
+    padding: 15,
+    borderRadius: 8,
+  },
+  text: {
+    color: "#fff",
+    fontSize: 16,
+    fontWeight: "bold",
+  },
   input: {
     borderWidth: 1,
-    borderColor: "#ccc",
-    padding: 10,
-    marginVertical: 10,
-    borderRadius: 5,
+    borderColor: "#e0e0e0",
+    backgroundColor: "#fff",
+    padding: 14,
+    marginVertical: 12,
+    borderRadius: 12,
+    fontSize: 16,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.07,
+    shadowRadius: 2,
+    elevation: 2,
   },
-  answerBox: { flex: 1, marginBottom: 10 },
-  answer: { fontSize: 16, lineHeight: 22 },
+  answerBox: {
+    flex: 1,
+    marginBottom: 14,
+    backgroundColor: "#fff",
+    borderRadius: 14,
+    padding: 16,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  answer: {
+    fontSize: 17,
+    lineHeight: 24,
+    color: "#222",
+  },
 });
